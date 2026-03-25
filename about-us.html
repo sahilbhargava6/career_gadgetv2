@@ -6,94 +6,11 @@
 <title>About Us — The Career Gadget</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="css/styles.css"/>
-<style>
-  .about-page-hero {
-    background: linear-gradient(140deg, var(--ink), var(--ink2));
-    color: var(--white);
-    padding: 120px 6vw 90px;
-    border-bottom: 1px solid rgba(255,255,255,.08);
-  }
-  .about-page-tag {
-    font-size: 11px;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    color: var(--pop);
-    margin-bottom: 16px;
-  }
-  .about-page-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(38px, 5vw, 64px);
-    line-height: 1.08;
-    letter-spacing: -.02em;
-    max-width: 760px;
-    margin-bottom: 20px;
-  }
-  .about-page-sub {
-    max-width: 620px;
-    color: rgba(255,255,255,.84);
-    font-size: 15px;
-    line-height: 1.8;
-    font-weight: 300;
-  }
-  .values-section {
-    padding: 100px 6vw;
-    background: var(--paper);
-  }
-  .values-header {
-    text-align: center;
-    margin-bottom: 56px;
-  }
-  .values-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-  .value-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 32px 24px;
-    text-align: center;
-    transition: border-color .3s, transform .3s, box-shadow .3s;
-  }
-  .value-card:hover {
-    border-color: var(--accent);
-    transform: translateY(-4px);
-    box-shadow: 0 24px 64px rgba(0,63,53,.09);
-  }
-  .value-icon {
-    font-size: 44px;
-    margin-bottom: 16px;
-  }
-  .value-card h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    letter-spacing: -.01em;
-  }
-  .value-card p {
-    font-size: 14px;
-    color: var(--ink3);
-    line-height: 1.7;
-    font-weight: 300;
-  }
-  @media(max-width: 960px) {
-    .values-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  @media(max-width: 600px) {
-    .values-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
 </head>
 <body>
 
 <nav id="nav">
-  <a href="index.html" class="logo brand-lockup" aria-label="The Career Gadget">
+  <a href="#" class="logo brand-lockup" aria-label="The Career Gadget">
     <svg viewBox="0 0 260 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The Career Gadget logo">
       <rect class="brand-key-c" x="6" y="7" width="42" height="46" rx="20"/>
       <rect class="brand-key-cut" x="20" y="18" width="15" height="24" rx="7"/>
@@ -104,17 +21,21 @@
       <text class="brand-text" x="45" y="26">THE CAREER GADGET</text>
     </svg>
   </a>
-  <ul class="nav-center">
-    <li><a href="index.html#home">Home</a></li>
+  <ul class="nav-center" id="navMenu">
+    <li><a href="#home">Home</a></li>
     <li><a href="about-us.html">About Us</a></li>
-    <li><a href="index.html#difference">Why We're Different</a></li>
+    <li><a href="#difference">Why We're Different</a></li>
     <li><a href="visa-sponsorship.html">Visa Strategy</a></li>
-    <li><a href="index.html#process">Process</a></li>
+    <li><a href="#process">Process</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
+  <button class="nav-menu-toggle" id="menuToggle" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
   <a href="contact.html" class="nav-btn"><span class="nav-btn-dot"></span> Book Free Consultation</a>
 </nav>
-
 <section class="about-page-hero">
   <div class="about-page-tag reveal">About The Career Gadget</div>
   <h1 class="about-page-title reveal">Bridge the gap between talent and opportunity.</h1>
