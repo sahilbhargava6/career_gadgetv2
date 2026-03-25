@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Book Your Free Consultation — The Career Gadget</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/styles.css"/>
+<style>
+  .contact-page-hero {
+    background: linear-gradient(135deg, var(--ink) 0%, #1a5c52 100%);
+    color: var(--white);
+    padding: 140px 6vw 120px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-page-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(241,205,99,.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .contact-page-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    left: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(241,205,99,.05) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .contact-page-hero > * {
+    position: relative;
+    z-index: 1;
+  }
+  .contact-page-tag {
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--pop);
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+  .contact-page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 6vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -.02em;
+    max-width: 800px;
+    margin: 0 auto 20px;
+    font-weight: 700;
+  }
+  .contact-page-sub {
+    max-width: 650px;
+    color: rgba(255,255,255,.88);
+    font-size: 16px;
+    line-height: 1.8;
+    font-weight: 300;
+    margin: 0 auto;
+  }
+  
+  .contact-form-section {
+    padding: 100px 6vw;
+    background: linear-gradient(to bottom, var(--white) 0%, #fafbfa 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+  .contact-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  
+  .contact-form-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .contact-form-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 64px;
+    box-shadow: 0 12px 40px rgba(0,63,53,.08);
+    transition: box-shadow .4s, transform .4s;
+  }
+  .contact-form-card:hover {
+    box-shadow: 0 24px 64px rgba(0,63,53,.12);
+    transform: translateY(-4px);
+  }
+  
+  .contact-benefits {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+  .contact-benefit-item {
+    display: flex;
+    gap: 20px;
+    animation: slideInUp .6s ease-out forwards;
+    opacity: 0;
+  }
+  .contact-benefit-item:nth-child(1) { animation-delay: .1s; }
+  .contact-benefit-item:nth-child(2) { animation-delay: .2s; }
+  .contact-benefit-item:nth-child(3) { animation-delay: .3s; }
+  .contact-benefit-item:nth-child(4) { animation-delay: .4s; }
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .contact-benefit-icon {
+    font-size: 36px;
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(241,205,99,.12) 0%, rgba(241,205,99,.06) 100%);
+    border-radius: 14px;
+    border: 1px solid rgba(241,205,99,.2);
+  }
+  .contact-benefit-content h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--ink);
+    letter-spacing: -.01em;
+  }
+  .contact-benefit-content p {
+    font-size: 14px;
+    color: var(--ink3);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+  .contact-quick-text {
+    padding: 24px;
+    background: linear-gradient(135deg, rgba(241,205,99,.1) 0%, rgba(241,205,99,.05) 100%);
+    border: 1px solid rgba(241,205,99,.2);
+    border-radius: 12px;
+    border-left: 4px solid var(--pop);
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  .contact-quick-text strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  
+  .form-group {
+    margin-bottom: 32px;
+  }
+  .form-group:last-of-type {
+    margin-bottom: 20px;
+  }
+  .form-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .form-input,
+  .form-select {
+    width: 100%;
+    padding: 16px 18px;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    background: var(--white);
+    color: var(--ink);
+    transition: all .3s;
+    box-sizing: border-box;
+  }
+  .form-input:hover,
+  .form-select:hover {
+    border-color: #b0c5bc;
+    background: #fafbfa;
+  }
+  .form-input:focus,
+  .form-select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 5px rgba(20,88,79,.12);
+    background: #fafbfa;
+  }
+  .form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23003F35' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 44px;
+    cursor: pointer;
+  }
+  .form-input::placeholder {
+    color: #aaa;
+    font-weight: 300;
+  }
+  .form-disclaimer {
+    font-size: 13px;
+    color: var(--ink3);
+    line-height: 1.7;
+    margin-bottom: 32px;
+    padding: 18px 20px;
+    background: linear-gradient(135deg, rgba(241,205,99,.1) 0%, rgba(241,205,99,.05) 100%);
+    border-radius: 12px;
+    border: 1px solid rgba(241,205,99,.2);
+    border-left: 4px solid var(--pop);
+    display: flex;
+    gap: 12px;
+  }
+  .form-disclaimer::before {
+    content: '✓';
+    color: var(--pop);
+    font-weight: 700;
+    flex-shrink: 0;
+    font-size: 14px;
+  }
+  .form-submit {
+    width: 100%;
+    padding: 18px 28px;
+    background: linear-gradient(135deg, var(--ink) 0%, #1a5c52 100%);
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: all .3s;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    box-shadow: 0 8px 24px rgba(0,63,53,.2);
+  }
+  .form-submit:hover {
+    background: linear-gradient(135deg, #001f1a 0%, #143d36 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 36px rgba(0,63,53,.28);
+  }
+  .form-submit:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0,63,53,.15);
+  }
+  
+  .contact-info {
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1.5px solid var(--border);
+    text-align: center;
+  }
+  .contact-info-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: var(--ink);
+    letter-spacing: -.01em;
+  }
+  .contact-info-item {
+    font-size: 14px;
+    color: var(--ink3);
+    line-height: 1.8;
+  }
+  .contact-info-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all .2s;
+  }
+  .contact-info-link:hover {
+    color: var(--ink);
+    text-decoration: underline;
+  }
+  
+  @media(max-width: 960px) {
+    .contact-container {
+      grid-template-columns: 1fr;
+      gap: 50px;
+    }
+    .contact-form-section {
+      padding: 60px 6vw;
+      min-height: auto;
+    }
+    .contact-benefits {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .contact-benefit-item {
+      flex-direction: column;
+      gap: 12px;
+    }
+    .contact-benefit-icon {
+      width: 48px;
+      height: 48px;
+      font-size: 28px;
+    }
+  }
+  @media(max-width: 600px) {
+    .contact-form-card {
+      padding: 40px 28px;
+    }
+    .contact-page-hero {
+      padding: 100px 6vw 80px;
+    }
+    .contact-benefits {
+      grid-template-columns: 1fr;
+    }
+    .contact-page-title {
+      font-size: clamp(32px, 5vw, 48px);
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="logo brand-lockup" aria-label="The Career Gadget">
+    <svg viewBox="0 0 260 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The Career Gadget logo">
+      <rect class="brand-key-c" x="6" y="7" width="42" height="46" rx="20"/>
+      <rect class="brand-key-cut" x="20" y="18" width="15" height="24" rx="7"/>
+      <rect class="brand-key-shaft" x="46" y="29" width="172" height="7"/>
+      <rect class="brand-key-tooth" x="195" y="29" width="8" height="16"/>
+      <rect class="brand-key-tooth" x="212" y="29" width="8" height="11"/>
+      <rect class="brand-strip" x="40" y="17" width="150" height="13" rx="1"/>
+      <text class="brand-text" x="45" y="26">THE CAREER GADGET</text>
+    </svg>
+  </a>
+  <ul class="nav-center">
+    <li><a href="index.html#home">Home</a></li>
+    <li><a href="about-us.html">About Us</a></li>
+    <li><a href="index.html#difference">Why We're Different</a></li>
+    <li><a href="visa-sponsorship.html">Visa Strategy</a></li>
+    <li><a href="index.html#process">Process</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-btn"><span class="nav-btn-dot"></span> Book Free Consultation</a>
+</nav>
+
+<!-- HERO -->
+<section class="contact-page-hero">
+  <div class="contact-page-tag">Let's Get Started</div>
+  <h1 class="contact-page-title">Book Your Free Strategy Session</h1>
+  <p class="contact-page-sub">No commitment. No pressure. Just clarity on your next step. Tell us about yourself and we'll prepare a personalised approach for your specific situation.</p>
+</section>
+
+<!-- CONTACT FORM & BENEFITS -->
+<section class="contact-form-section">
+  <div class="contact-container">
+    <!-- LEFT: Form -->
+    <div class="contact-form-wrapper">
+      <div class="contact-form-card">
+        <form id="contactForm">
+          <div class="form-group">
+            <label class="form-label">Full Name *</label>
+            <input type="text" class="form-input" name="name" placeholder="Your full name" required/>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Email Address *</label>
+            <input type="email" class="form-input" name="email" placeholder="you@example.com" required/>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Phone Number *</label>
+            <input type="tel" class="form-input" name="phone" placeholder="+44 (0)..." required/>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Which audience group applies to you? *</label>
+            <select class="form-select" name="audience" required>
+              <option value="">Select an option...</option>
+              <option value="graduate">University Student / Recent Graduate</option>
+              <option value="professional">Working Professional</option>
+              <option value="international-visa">International Professional (Visa Sponsorship)</option>
+              <option value="international-student">International Student Transitioning to Work</option>
+            </select>
+          </div>
+          
+          <div class="form-disclaimer">
+            Your information is completely confidential and will only be used to prepare for your consultation.
+          </div>
+          
+          <button type="submit" class="form-submit">Claim My Free Consultation</button>
+        </form>
+        
+        <div class="contact-info">
+          <div class="contact-info-title">Prefer to reach out?</div>
+          <div class="contact-info-item">
+            <a href="mailto:contacthecareergadget@gmail.com" class="contact-info-link">contacthecareergadget@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- RIGHT: Benefits -->
+    <div class="contact-benefits">
+      <div class="contact-benefit-item">
+        <div class="contact-benefit-icon">🎯</div>
+        <div class="contact-benefit-content">
+          <h4>Personalised Strategy</h4>
+          <p>No generic approach. We spend time understanding your unique situation and goals.</p>
+        </div>
+      </div>
+      
+      <div class="contact-benefit-item">
+        <div class="contact-benefit-icon">⚡</div>
+        <div class="contact-benefit-content">
+          <h4>Expert Guidance</h4>
+          <p>Decades of combined hiring and recruitment expertise at your service.</p>
+        </div>
+      </div>
+      
+      <div class="contact-benefit-item">
+        <div class="contact-benefit-icon">🔄</div>
+        <div class="contact-benefit-content">
+          <h4>Real Accountability</h4>
+          <p>We manage your entire journey from consultation to job offer and beyond.</p>
+        </div>
+      </div>
+      
+      <div class="contact-benefit-item">
+        <div class="contact-benefit-icon">✓</div>
+        <div class="contact-benefit-content">
+          <h4>No Pressure</h4>
+          <p>Free consultation with zero commitment. Walk away with clarity and insight.</p>
+        </div>
+      </div>
+      
+      <div class="contact-quick-text">
+        <strong>⏱ Quick to respond:</strong> We typically confirm your consultation time within 24 hours.
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="logo brand-lockup on-dark" aria-label="The Career Gadget">
+        <svg viewBox="0 0 260 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The Career Gadget logo">
+          <rect class="brand-key-c" x="6" y="7" width="42" height="46" rx="20"/>
+          <rect class="brand-key-cut" x="20" y="18" width="15" height="24" rx="7"/>
+          <rect class="brand-key-shaft" x="46" y="29" width="172" height="7"/>
+          <rect class="brand-key-tooth" x="195" y="29" width="8" height="16"/>
+          <rect class="brand-key-tooth" x="212" y="29" width="8" height="11"/>
+          <rect class="brand-strip" x="40" y="17" width="150" height="13" rx="1"/>
+          <text class="brand-text" x="45" y="26">THE CAREER GADGET</text>
+        </svg>
+      </a>
+      <p>Empowering UK professionals and graduates to land their dream roles through expert CV writing, coaching, and smart job searching.</p>
+    </div>
+    <div class="footer-col"><div class="footer-col-head">Services</div><ul><li><a href="index.html#services">CV Writing</a></li><li><a href="index.html#services">Career Coaching</a></li><li><a href="index.html#services">Interview Prep</a></li><li><a href="visa-sponsorship.html">Visa Strategy</a></li></ul></div>
+    <div class="footer-col"><div class="footer-col-head">Company</div><ul><li><a href="index.html#home">Home</a></li><li><a href="about-us.html#about">About Us</a></li><li><a href="index.html#process">Process</a></li><li><a href="index.html#testimonials">Testimonials</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><div class="footer-col-head">Legal</div><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-of-service.html">Terms of Service</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 The Career Gadget Ltd. All rights reserved. Registered in England & Wales.</span>
+    <div class="footer-socials">
+      <a href="#" class="f-social">in</a>
+      <a href="#" class="f-social">ig</a>
+      <a href="#" class="f-social">𝕏</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    // Form submission logic - can be connected to backend later
+    alert('Thank you for reaching out! We will contact you shortly to confirm your consultation.');
+    this.reset();
+  });
+</script>
+</body>
+</html>

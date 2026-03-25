@@ -35,6 +35,59 @@
     line-height: 1.8;
     font-weight: 300;
   }
+  .values-section {
+    padding: 100px 6vw;
+    background: var(--paper);
+  }
+  .values-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .value-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 32px 24px;
+    text-align: center;
+    transition: border-color .3s, transform .3s, box-shadow .3s;
+  }
+  .value-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 24px 64px rgba(0,63,53,.09);
+  }
+  .value-icon {
+    font-size: 44px;
+    margin-bottom: 16px;
+  }
+  .value-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -.01em;
+  }
+  .value-card p {
+    font-size: 14px;
+    color: var(--ink3);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  @media(max-width: 960px) {
+    .values-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media(max-width: 600px) {
+    .values-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
 </head>
 <body>
@@ -54,29 +107,31 @@
   <ul class="nav-center">
     <li><a href="index.html#home">Home</a></li>
     <li><a href="about-us.html">About Us</a></li>
+    <li><a href="index.html#difference">Why We're Different</a></li>
+    <li><a href="visa-sponsorship.html">Visa Strategy</a></li>
     <li><a href="index.html#process">Process</a></li>
-    <li><a href="index.html#testimonials">Testimonials</a></li>
+    <li><a href="contact.html">Contact</a></li>
   </ul>
-  <a href="index.html#contact" class="nav-btn"><span class="nav-btn-dot"></span> Book a Call</a>
+  <a href="contact.html" class="nav-btn"><span class="nav-btn-dot"></span> Book Free Consultation</a>
 </nav>
 
 <section class="about-page-hero">
   <div class="about-page-tag reveal">About The Career Gadget</div>
-  <h1 class="about-page-title reveal">We build careers with strategy, clarity, and confidence.</h1>
-  <p class="about-page-sub reveal">From first applications to executive transitions, we combine recruiter insight, personal branding, and practical coaching to help ambitious professionals land the right role faster.</p>
+  <h1 class="about-page-title reveal">Bridge the gap between talent and opportunity.</h1>
+  <p class="about-page-sub reveal">The Career Gadget is a UK-based, end-to-end career services company founded in 2024. We work entirely on behalf of the candidate, providing the structured, expert-led support that should exist but doesn't — turning the chaos of job searching into a clear, managed, results-driven process.</p>
 </section>
 
 <section class="about-strip" id="about">
   <div class="about-main reveal">
-    <div class="about-text-tag">Who We Are</div>
-    <h2 class="about-h2">A Career Partner<br>That Works <em>With You</em></h2>
-    <p class="about-body">The Career Gadget was founded to remove the guesswork from job searching. We blend hiring-side experience with modern career strategy so your CV, profile, and interview performance all tell one clear, compelling story.</p>
+    <div class="about-text-tag">Our Story</div>
+    <h2 class="about-h2">Founded in 2024 to <em>Solve a Real Problem</em></h2>
+    <p class="about-body">UK universities do not provide job placements. Every year, thousands of graduates enter one of the world's most competitive job markets with no structured support, no guidance, and no idea where to start. The Career Gadget was built to solve this problem. Unlike traditional recruitment agencies that work on behalf of employers, we work entirely on behalf of the candidate — in your corner from day one. We combine hiring-side expertise with modern career strategy to help you land the role you deserve.</p>
   </div>
   <div class="about-stats reveal reveal-d1">
-    <div class="astat"><div class="astat-num blue">2,400+</div><div class="astat-label">Clients Supported</div></div>
-    <div class="astat"><div class="astat-num orange">94%</div><div class="astat-label">Interview Success Rate</div></div>
-    <div class="astat"><div class="astat-num blue">3 weeks</div><div class="astat-label">Average to First Interview</div></div>
-    <div class="astat"><div class="astat-num orange">4.9★</div><div class="astat-label">Average Client Rating</div></div>
+    <div class="astat"><div class="astat-num blue">Founded</div><div class="astat-label">2024</div></div>
+    <div class="astat"><div class="astat-num orange">Service Model</div><div class="astat-label">End-to-End, Fully Managed</div></div>
+    <div class="astat"><div class="astat-num blue">Based</div><div class="astat-label">United Kingdom</div></div>
+    <div class="astat"><div class="astat-num orange">4 Audiences</div><div class="astat-label">Students • Professionals • International</div></div>
   </div>
 </section>
 
@@ -89,46 +144,49 @@
     <p class="services-top-right reveal">Every service is tailored to your goals, target role, and market positioning so you get practical outcomes, not generic advice.</p>
   </div>
   <div class="svc-grid">
-    <div class="svc reveal"><div class="svc-num">01</div><div class="svc-ico">📄</div><h3 class="svc-name">CV Writing</h3><p class="svc-desc">ATS-optimised, recruiter-ready CVs written for your target roles and sector expectations.</p><a href="index.html#contact" class="svc-link">Learn more →</a></div>
-    <div class="svc reveal reveal-d1"><div class="svc-num">02</div><div class="svc-ico">🎯</div><h3 class="svc-name">Career Coaching</h3><p class="svc-desc">One-to-one strategy sessions to sharpen your positioning and keep you accountable.</p><a href="index.html#contact" class="svc-link">Learn more →</a></div>
-    <div class="svc reveal reveal-d2"><div class="svc-num">03</div><div class="svc-ico">🎤</div><h3 class="svc-name">Interview Preparation</h3><p class="svc-desc">Mock interviews and answer frameworks to improve confidence and conversion rates.</p><a href="index.html#contact" class="svc-link">Learn more →</a></div>
+    <div class="svc reveal"><div class="svc-num">01</div><div class="svc-ico">📄</div><h3 class="svc-name">CV Writing</h3><p class="svc-desc">ATS-optimised, recruiter-ready CVs written for your target roles and sector expectations.</p><a href="contact.html" class="svc-link">Claim Your Free Consultation →</a></div>
+    <div class="svc reveal reveal-d1"><div class="svc-num">02</div><div class="svc-ico">🎯</div><h3 class="svc-name">Career Coaching</h3><p class="svc-desc">One-to-one strategy sessions to sharpen your positioning and keep you accountable.</p><a href="contact.html" class="svc-link">Claim Your Free Consultation →</a></div>
+    <div class="svc reveal reveal-d2"><div class="svc-num">03</div><div class="svc-ico">🎤</div><h3 class="svc-name">Interview Preparation</h3><p class="svc-desc">Mock interviews and answer frameworks to improve confidence and conversion rates.</p><a href="contact.html" class="svc-link">Claim Your Free Consultation →</a></div>
   </div>
 </section>
 
-<section class="team" id="team">
-  <div class="team-top">
-    <div class="team-tag reveal">Meet The Team</div>
-    <h2 class="team-h2 reveal">Experts Behind <em>Your Progress</em></h2>
-    <p class="team-sub reveal">Our team combines recruitment, coaching, and personal branding expertise to support every part of your journey.</p>
+<!-- VALUES SECTION -->
+<section class="values-section">
+  <div class="values-header">
+    <div class="about-text-tag reveal">Our Values</div>
+    <h2 class="about-h2 reveal">How We <em>Operate Every Day</em></h2>
+    <p style="font-size:15px;color:var(--ink3);max-width:560px;margin:0 auto;line-height:1.75;font-weight:300;margin-top:14px;text-align:center;" class="reveal">These are not aspirational statements. They are how The Career Gadget operates with every single client.</p>
   </div>
-  <div class="team-grid">
-    <div class="tcard reveal">
-      <div class="tcard-avatar" style="background:var(--ink)">SH</div>
-      <h3 class="tcard-name">Sarah Hughes</h3>
-      <div class="tcard-role">Founder &amp; Lead Career Coach</div>
-      <p class="tcard-bio">Leads career strategy and client transformation programmes with a hiring-first approach.</p>
-      <a href="index.html#contact" class="tcard-link">Work with Sarah →</a>
+  <div class="values-grid">
+    <div class="value-card reveal">
+      <div class="value-icon">🎯</div>
+      <h3>Results First</h3>
+      <p>We define success by one thing only: you get hired. Everything we do serves that outcome.</p>
     </div>
-    <div class="tcard reveal reveal-d1">
-      <div class="tcard-avatar" style="background:var(--accent2)">JM</div>
-      <h3 class="tcard-name">James Mitchell</h3>
-      <div class="tcard-role">CV &amp; Personal Brand Strategist</div>
-      <p class="tcard-bio">Transforms profiles into high-converting career assets that attract quality opportunities.</p>
-      <a href="index.html#contact" class="tcard-link">Work with James →</a>
+    <div class="value-card reveal reveal-d1">
+      <div class="value-icon">🤝</div>
+      <h3>Personalised Always</h3>
+      <p>No two clients are the same. We never use templates, shortcuts, or one-size-fits-all solutions.</p>
     </div>
-    <div class="tcard reveal reveal-d2">
-      <div class="tcard-avatar" style="background:var(--pop);color:var(--ink)">AP</div>
-      <h3 class="tcard-name">Amara Patel</h3>
-      <div class="tcard-role">Interview Coach</div>
-      <p class="tcard-bio">Helps clients communicate with confidence in competency and panel interview settings.</p>
-      <a href="index.html#contact" class="tcard-link">Work with Amara →</a>
+    <div class="value-card reveal reveal-d2">
+      <div class="value-icon">🔐</div>
+      <h3>Trust & Discretion</h3>
+      <p>Your personal information, visa status, and career situation is treated with complete confidentiality.</p>
     </div>
-    <div class="tcard reveal reveal-d1">
-      <div class="tcard-avatar" style="background:var(--ink3)">TO</div>
-      <h3 class="tcard-name">Thomas Owens</h3>
-      <div class="tcard-role">LinkedIn &amp; Digital Profile Specialist</div>
-      <p class="tcard-bio">Builds high-impact LinkedIn positioning that increases inbound recruiter interest and quality interview opportunities.</p>
-      <a href="index.html#contact" class="tcard-link">Work with Thomas →</a>
+    <div class="value-card reveal reveal-d3">
+      <div class="value-icon">🌍</div>
+      <h3>Inclusive by Design</h3>
+      <p>We serve domestic students, UK professionals, and international visa seekers with equal commitment.</p>
+    </div>
+    <div class="value-card reveal reveal-d1">
+      <div class="value-icon">💬</div>
+      <h3>Honest Always</h3>
+      <p>We tell you the truth about your profile, your prospects, and what we can realistically achieve.</p>
+    </div>
+    <div class="value-card reveal reveal-d2">
+      <div class="value-icon">⚡</div>
+      <h3>Proactive & Thorough</h3>
+      <p>We don't wait to be asked. We identify issues and opportunities before you even notice them.</p>
     </div>
   </div>
 </section>
@@ -149,7 +207,7 @@
       </a>
       <p>Empowering UK professionals and graduates to land their dream roles through expert CV writing, coaching, and smart job searching.</p>
     </div>
-    <div class="footer-col"><div class="footer-col-head">Services</div><ul><li><a href="index.html#services">CV Writing</a></li><li><a href="index.html#services">Career Coaching</a></li><li><a href="index.html#services">Interview Prep</a></li><li><a href="index.html#services">Job Search</a></li><li><a href="index.html#services">Profile Building</a></li></ul></div>
+    <div class="footer-col"><div class="footer-col-head">Services</div><ul><li><a href="index.html#services">CV Writing</a></li><li><a href="index.html#services">Career Coaching</a></li><li><a href="index.html#services">Interview Prep</a></li><li><a href="visa-sponsorship.html">Visa Strategy</a></li></ul></div>
     <div class="footer-col"><div class="footer-col-head">Company</div><ul><li><a href="index.html#home">Home</a></li><li><a href="about-us.html#about">About Us</a></li><li><a href="index.html#process">Process</a></li><li><a href="index.html#testimonials">Testimonials</a></li><li><a href="index.html#contact">Contact</a></li></ul></div>
     <div class="footer-col"><div class="footer-col-head">Legal</div><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-of-service.html">Terms of Service</a></li></ul></div>
   </div>
