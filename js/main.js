@@ -64,3 +64,16 @@
     window.addEventListener('resize', update);
     update();
   })();
+
+  // ── Placed Carousel (Infinite Scroll) ───────────────────────────────────────
+  (function() {
+    const carousel = document.getElementById('placedCarousel');
+    if (!carousel) return;
+    const logos = carousel.querySelectorAll('.placed-logo');
+    if (logos.length === 0) return;
+    
+    // Duplicate logos for seamless infinite scroll
+    logos.forEach(logo => {
+      carousel.appendChild(logo.cloneNode(true));
+    });
+  })();
