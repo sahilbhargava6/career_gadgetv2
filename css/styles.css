@@ -257,7 +257,7 @@
   .comp-title { font-family: 'DM Sans', sans-serif; font-size:clamp(32px, 4vw, 52px); font-weight:700; letter-spacing:-.02em; line-height:1.1; }
   .comp-title em { font-style:italic; color:var(--accent); }
   .comp-subtitle { font-size:16px; color:var(--ink3); margin-top:12px; font-weight:500; letter-spacing:-.01em; }
-  .comp-table-wrap { margin-bottom:40px; }
+  .comp-table-wrap { overflow-x:auto; margin-bottom:40px; -webkit-overflow-scrolling:touch; }
   .comp-table { width:100%; border-collapse:collapse; }
   .comp-table thead { background:var(--paper); }
   .comp-table th { padding:18px 20px; text-align:left; font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink3); border-bottom:1px solid var(--border); }
@@ -335,8 +335,8 @@
   /* PLACED AT */
   .placed-at { background:var(--white); border-bottom:1px solid var(--border); padding:22px 6vw; display:flex; align-items:center; gap:28px; }
   .placed-at-label { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink3); white-space:nowrap; flex-shrink:0; }
-  .carousel-wrap { flex:1; overflow:hidden; }
-  .carousel-track { display:flex; align-items:center; animation: scroll-carousel 30s linear infinite; gap:0; }
+  .carousel-wrap { flex:1; overflow:hidden; max-width:100%; }
+  .carousel-track { display:flex; align-items:center; animation: scroll-carousel 30s linear infinite; gap:0; white-space:nowrap; will-change:transform; }
   @keyframes scroll-carousel { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
   .placed-logo { font-family:'DM Sans', sans-serif; font-size:14px; font-weight:600; color:var(--ink3); padding:6px 20px; border-right:1px solid var(--border); white-space:nowrap; letter-spacing:.01em; }
   .placed-logo:last-child { border-right:none; }
@@ -483,7 +483,7 @@
   @media(max-width:600px){
     .brand-lockup svg { width:180px; }
     .nav-btn { display:none; }
-    .hero { padding:90px 5vw 60px; min-height:auto; }
+    .hero { padding:90px 5vw 60px; min-height:auto; grid-template-columns:1fr; gap:30px; }
     .hero-h1 { font-size: clamp(32px, 4.5vw, 48px); line-height:1.15; }
     .hero-h1 .uw { white-space:normal; }
     .hero-body { font-size:15px; line-height:1.7; max-width:100%; }
@@ -492,20 +492,30 @@
     .hero-trust { flex-direction:column; align-items:flex-start; gap:14px; margin-top:32px; }
     .hero-trust-text { font-size:12px; }
     .hero-label { font-size:11px; margin-bottom:20px; }
-    .placed-at { flex-direction:column; align-items:flex-start; gap:16px; }
-    .carousel-wrap { max-height:60px; }
-    .carousel-track { animation: scroll-carousel 20s linear infinite; }
-    .placed-logo { border:1px solid var(--border); border-radius:4px; padding:5px 12px; font-size:12px; }
+    .placed-at { flex-direction:column; align-items:flex-start; gap:16px; padding:22px 5vw; }
+    .carousel-wrap { max-height:60px; width:100%; overflow:hidden; }
+    .carousel-track { animation: scroll-carousel 20s linear infinite; white-space:nowrap; }
+    .placed-logo { border:1px solid var(--border); border-radius:4px; padding:5px 12px; font-size:12px; display:inline-block; }
     .testi-carousel .tcard { flex:0 0 calc(100vw - 12vw - 20px); }
     .nav-menu-toggle { display:flex; }
+    .about-strip { padding:60px 5vw; gap:40px; }
     .svc-grid { grid-template-columns:1fr; }
     .form-row { grid-template-columns:1fr; }
     .team-grid { grid-template-columns:1fr; }
     .footer-grid { grid-template-columns:1fr; }
     .about-stats { grid-template-columns:1fr 1fr; }
+    .astat { padding:20px 16px; }
+    .astat-num { font-size:32px; }
+    .astat-label { font-size:12px; }
     .audience-grid { grid-template-columns:1fr; }
-    .comp-th-trad { min-width:120px; }
-    .comp-th-us { min-width:140px; }
+    .comp-table-wrap { margin-left:0; margin-right:0; overflow-x:auto; }
+    .comp-table { font-size:12px; }
+    .comp-table th { padding:12px 12px; }
+    .comp-table td { padding:12px 12px; }
+    .comp-th-label { min-width:80px; }
+    .comp-th-trad { min-width:100px; }
+    .comp-th-us { min-width:100px; }
+    .comp-row-label { width:80px; }
     .process-steps-row { grid-template-columns:1fr; }
   }
 
