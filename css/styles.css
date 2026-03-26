@@ -28,7 +28,7 @@
   }
   nav.scrolled { padding:13px 6vw; }
   .logo { display:flex; align-items:center; text-decoration:none; }
-  .brand-lockup svg { width:220px; height:auto; display:block; }
+  .brand-lockup svg, .brand-lockup img { width:150px; height:auto; display:block; }
   .brand-key-c, .brand-key-shaft, .brand-key-tooth { fill:var(--pop); }
   .brand-key-cut { fill:var(--ink); }
   .brand-strip { fill:#3D5250; }
@@ -38,7 +38,7 @@
   .logo-name { font-family: 'DM Sans', sans-serif; font-size:17px; font-weight:700; color: var(--ink); letter-spacing:-.01em; }
   .logo-name span { color: var(--pop); }
   .nav-center { display:flex; gap:32px; list-style:none; }
-  .nav-center a { text-decoration:none; color:var(--ink3); font-size:13px; font-weight:500; letter-spacing:.04em; transition: color .2s; position:relative; }
+  .nav-center a { text-decoration:none; color:var(--ink3); font-size:15px; font-weight:500; letter-spacing:.04em; transition: color .2s; position:relative; }
   .nav-center a::after { content:''; position:absolute; bottom:-4px; left:0; right:0; height:1px; background:var(--pop); transform:scaleX(0); transform-origin:left; transition:transform .25s; }
   .nav-center a:hover { color:var(--ink); }
   .nav-center a:hover::after { transform:scaleX(1); }
@@ -322,6 +322,18 @@
   .founder-story { font-size:15px; line-height:1.8; color:var(--ink3); margin-bottom:16px; font-weight:300; }
   .founder-closing { font-size:15px; line-height:1.8; color:var(--ink); margin-top:24px; }
 
+  /* TEAM SECTION */
+  .team-section { padding:100px 6vw; background:var(--white); border-top:1px solid var(--border); }
+  .team-header { text-align:center; margin-bottom:56px; }
+  .team-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:40px; max-width:800px; margin:0 auto; }
+  .team-member { background:var(--paper); border:1px solid var(--border); border-radius:14px; padding:40px 32px; display:flex; flex-direction:column; align-items:center; text-align:center; transition:border-color .3s, transform .3s, box-shadow .3s; }
+  .team-member:hover { border-color:var(--accent); transform:translateY(-4px); box-shadow:0 24px 64px rgba(0,63,53,.09); }
+  .member-avatar { width:100px; height:100px; border-radius:50%; background:var(--accent); color:var(--white); display:flex; align-items:center; justify-content:center; font-family:'DM Sans', sans-serif; font-size:32px; font-weight:700; margin-bottom:20px; }
+  .member-info { flex:1; }
+  .member-name { font-family:'DM Sans', sans-serif; font-size:20px; font-weight:700; margin-bottom:6px; letter-spacing:-.01em; }
+  .member-role { font-size:12px; color:var(--pop); font-weight:600; text-transform:uppercase; letter-spacing:.08em; margin-bottom:16px; }
+  .member-bio { font-size:14px; line-height:1.7; color:var(--ink3); font-weight:300; }
+
   /* HERO TRUST BADGE */
   .hero-trust-badge { font-size:20px; }
 
@@ -483,7 +495,7 @@
   @media(max-width:600px){
     .brand-lockup svg { width:180px; }
     .nav-btn { display:none; }
-    .hero { padding:90px 5vw 60px; min-height:auto; grid-template-columns:1fr; gap:30px; }
+    .hero { padding:150px 5vw 60px; min-height:auto; grid-template-columns:1fr; gap:30px; }
     .hero-h1 { font-size: clamp(32px, 4.5vw, 48px); line-height:1.15; }
     .hero-h1 .uw { white-space:normal; }
     .hero-body { font-size:15px; line-height:1.7; max-width:100%; }
@@ -506,6 +518,12 @@
     .about-stats { grid-template-columns:1fr 1fr; }
     .astat { padding:20px 16px; }
     .astat-num { font-size:32px; }
+
+    /* RESULTS GRID MOBILE FONT REDUCTION */
+    .results-grid .result-num { font-size:40px; }
+    .results-grid .result-label { font-size:13px; }
+    .results-grid .result-proof { font-size:11px; }
+    .results-grid .result-item { padding:24px 18px; }
     .astat-label { font-size:12px; }
     .audience-grid { grid-template-columns:1fr; }
     .comp-table-wrap { margin-left:0; margin-right:0; overflow-x:auto; }
@@ -523,7 +541,7 @@
   .about-page-hero {
     background: linear-gradient(140deg, var(--ink), var(--ink2));
     color: var(--white);
-    padding: 120px 6vw 90px;
+    padding: 150px 6vw 90px;
     border-bottom: 1px solid rgba(255,255,255,.08);
   }
   .about-page-tag {
@@ -596,7 +614,7 @@
   .contact-page-hero {
     background: linear-gradient(135deg, var(--ink) 0%, #1a5c52 100%);
     color: var(--white);
-    padding: 140px 6vw 120px;
+    padding: 150px 6vw 120px;
     border-bottom: 1px solid rgba(255,255,255,.08);
     text-align: center;
     position: relative;
@@ -880,7 +898,7 @@
   .visa-page-hero {
     background: linear-gradient(140deg, var(--ink), var(--ink2));
     color: var(--white);
-    padding: 120px 6vw 90px;
+    padding: 150px 6vw 90px;
     border-bottom: 1px solid rgba(255,255,255,.08);
   }
   .visa-page-tag {
@@ -1123,7 +1141,7 @@
       padding: 40px 28px;
     }
     .contact-page-hero {
-      padding: 100px 6vw 80px;
+      padding: 150px 6vw 80px;
     }
     .contact-benefits {
       grid-template-columns: 1fr;
