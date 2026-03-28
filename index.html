@@ -319,7 +319,6 @@
     <p class="cta-body reveal">Book a free 20-minute strategy session with a career specialist. No pressure, no commitment — just a clear next step toward the role you deserve. We'll assess where you stand and show you exactly what needs to happen next.</p>
     <div class="cta-btns reveal">
       <a href="/contact" class="cta-main">Claim My Free Consultation</a>
-      <a href="tel:+441234567890" class="cta-link">Call Us →</a>
     </div>
   </div>
   <div class="cta-right reveal">
@@ -338,8 +337,9 @@
 
       <div class="form-row">
         <div><label class="form-label">Date</label><input class="form-input" type="date" id="cta-date"/></div>
-        <div><label class="form-label">Time</label><input class="form-input" type="time" id="cta-time"/></div>
+        <div><label class="form-label">Time</label><select class="form-select" id="cta-time"><option value="">Select a date first</option></select></div>
       </div>
+      <p class="form-note">Available slots: Monday to Friday, 9:00 AM to 5:00 PM. Saturday, 10:00 AM to 3:00 PM. Sundays unavailable.</p>
 
       <label class="form-label">What would you like to discuss?</label>
       <textarea class="form-input" id="cta-message" rows="3" placeholder="Brief description of the meeting topic..."></textarea>
@@ -384,14 +384,81 @@
 <!-- FORM SCRIPT: FIXED — correct IDs, correct function name, JSONP for CORS -->
 <script>
   var CTA_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxOu1MVlCvuKWvTVa6IMJnGaEOyOp_6yUzWmnFaNsN7b1i3TjXwQYxSEPDTRKiIBhQE/exec";
+  var CTA_WEEKDAY_SLOTS = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00'];
+  var CTA_SATURDAY_SLOTS = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00'];
 
   document.getElementById('cta-date').setAttribute('min', new Date().toISOString().split('T')[0]);
+  renderCtaTimeOptions();
 
   (function() {
     var s = document.createElement('style');
     s.textContent = '@keyframes ctaSpin { to { transform: rotate(360deg); } }';
     document.head.appendChild(s);
   })();
+
+  function clearCtaStatus() {
+    var el = document.getElementById('cta-status');
+    el.style.display = 'none';
+    el.innerHTML = '';
+  }
+
+  function getCtaAvailableSlots(dateValue) {
+    if (!dateValue) return [];
+    var date = new Date(dateValue + 'T00:00:00');
+    if (Number.isNaN(date.getTime())) return [];
+    var day = date.getDay();
+    if (day === 0) return [];
+    return day === 6 ? CTA_SATURDAY_SLOTS : CTA_WEEKDAY_SLOTS;
+  }
+
+  function formatCtaTimeLabel(value) {
+    var parts = value.split(':');
+    var hour = Number(parts[0]);
+    var minutes = parts[1];
+    var suffix = hour >= 12 ? 'PM' : 'AM';
+    var displayHour = hour % 12 || 12;
+    return displayHour + ':' + minutes + ' ' + suffix;
+  }
+
+  function renderCtaTimeOptions(selectedValue) {
+    var dateInput = document.getElementById('cta-date');
+    var timeSelect = document.getElementById('cta-time');
+    var slots = getCtaAvailableSlots(dateInput.value);
+    var placeholder = 'Select a date first';
+
+    if (dateInput.value) {
+      placeholder = slots.length ? 'Select a time' : 'Sunday unavailable';
+    }
+
+    timeSelect.innerHTML = '<option value="">' + placeholder + '</option>';
+    timeSelect.disabled = slots.length === 0;
+
+    slots.forEach(function(slot) {
+      var option = document.createElement('option');
+      option.value = slot;
+      option.textContent = formatCtaTimeLabel(slot);
+      if (selectedValue === slot) {
+        option.selected = true;
+      }
+      timeSelect.appendChild(option);
+    });
+  }
+
+  document.getElementById('cta-date').addEventListener('change', function() {
+    renderCtaTimeOptions();
+
+    if (!this.value) {
+      clearCtaStatus();
+      return;
+    }
+
+    if (getCtaAvailableSlots(this.value).length === 0) {
+      setCtaStatus('error', 'Consultations are available Monday to Saturday only. Please choose another date.');
+      return;
+    }
+
+    clearCtaStatus();
+  });
 
   function setCtaStatus(type, msg) {
     var el = document.getElementById('cta-status');
@@ -422,6 +489,11 @@
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setCtaStatus('error', 'Please enter a valid email address.');
+      return;
+    }
+    if (getCtaAvailableSlots(date).indexOf(time) === -1) {
+      setCtaStatus('error', 'Please choose a valid slot: Monday to Friday, 9:00 AM to 5:00 PM, or Saturday, 10:00 AM to 3:00 PM.');
+      renderCtaTimeOptions();
       return;
     }
 
@@ -455,6 +527,7 @@
         ['cta-fullName','cta-email','cta-phone','cta-date','cta-time','cta-message'].forEach(function(id) {
           document.getElementById(id).value = '';
         });
+        renderCtaTimeOptions();
       } else {
         finalize(false, 'Error: ' + (data.error || 'Something went wrong. Please try again.'));
       }
