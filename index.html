@@ -383,11 +383,10 @@
 
 <!-- FORM SCRIPT: FIXED — correct IDs, correct function name, JSONP for CORS -->
 <script>
-  var CTA_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzSVeb9Vj-HR9g1nFHiarwooLCYzlj9j6hGd8OBOPcAjDk-T13HccycACIxQjfIqAEO/exec";
+  var CTA_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxOu1MVlCvuKWvTVa6IMJnGaEOyOp_6yUzWmnFaNsN7b1i3TjXwQYxSEPDTRKiIBhQE/exec";
 
   document.getElementById('cta-date').setAttribute('min', new Date().toISOString().split('T')[0]);
 
-  // Inject spinner animation once
   (function() {
     var s = document.createElement('style');
     s.textContent = '@keyframes ctaSpin { to { transform: rotate(360deg); } }';
@@ -409,34 +408,16 @@
   }
 
   function submitCtaForm() {
-    var firstNameEl = document.getElementById('cta-firstName');
-    var lastNameEl = document.getElementById('cta-lastName');
-    var fullNameEl = document.getElementById('cta-fullName');
-    var emailEl = document.getElementById('cta-email');
-    var phoneEl = document.getElementById('cta-phone');
-    var dateEl = document.getElementById('cta-date');
-    var timeEl = document.getElementById('cta-time');
-    var messageEl = document.getElementById('cta-message');
-    var audienceEl = document.getElementById('cta-audience');
+    var name     = document.getElementById('cta-fullName').value.trim();
+    var email    = document.getElementById('cta-email').value.trim();
+    var phone    = document.getElementById('cta-phone').value.trim();
+    var date     = document.getElementById('cta-date').value;
+    var time     = document.getElementById('cta-time').value;
+    var message  = document.getElementById('cta-message').value.trim();
+    var audience = document.getElementById('cta-audience').value;
 
-    var firstName = firstNameEl ? firstNameEl.value.trim() : '';
-    var lastName  = lastNameEl ? lastNameEl.value.trim() : '';
-    var fullName  = fullNameEl ? fullNameEl.value.trim() : (firstName + ' ' + lastName).trim();
-
-    if (!firstName && fullName) {
-      firstName = fullName;
-      lastName = '';
-    }
-
-    var email     = emailEl ? emailEl.value.trim() : '';
-    var phone     = phoneEl ? phoneEl.value.trim() : '';
-    var date      = dateEl ? dateEl.value : '';
-    var time      = timeEl ? timeEl.value : '';
-    var message   = messageEl ? messageEl.value.trim() : '';
-    var audience  = audienceEl ? audienceEl.value : '';
-
-    if (!firstName || !email || !date || !time) {
-      setCtaStatus('error', 'Please fill in your first name, email, date, and time.');
+    if (!name || !email || !date || !time) {
+      setCtaStatus('error', 'Please fill in your name, email, date, and time.');
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -448,17 +429,17 @@
     btn.disabled = true;
     setCtaStatus('loading', 'Booking your free session…');
 
-    // JSONP — works on localhost and live, bypasses CORS completely
     var callbackName = 'ctaCb_' + Date.now();
     var params = new URLSearchParams({
-      firstName: firstName, lastName: lastName, email: email,
-      phone: phone, date: date, time: time,
-      message: message, audience: audience, callback: callbackName
+      name: name, email: email, phone: phone,
+      date: date, time: time, message: message,
+      audience: audience, callback: callbackName
     });
 
     var script = document.createElement('script');
     script.src = CTA_SCRIPT_URL + '?' + params.toString();
     var settled = false;
+
     var finalize = function(success, msg) {
       if (settled) return;
       settled = true;
@@ -471,9 +452,8 @@
     window[callbackName] = function(data) {
       if (data.success) {
         finalize(true, '✓ Booked! A calendar invite has been sent to ' + email + '. We look forward to speaking with you!');
-        ['cta-firstName','cta-lastName','cta-fullName','cta-email','cta-phone','cta-date','cta-time','cta-message'].forEach(function(id) {
-          var field = document.getElementById(id);
-          if (field) field.value = '';
+        ['cta-fullName','cta-email','cta-phone','cta-date','cta-time','cta-message'].forEach(function(id) {
+          document.getElementById(id).value = '';
         });
       } else {
         finalize(false, 'Error: ' + (data.error || 'Something went wrong. Please try again.'));
@@ -481,13 +461,11 @@
     };
 
     script.onerror = function() {
-      // Apps Script may still process successfully even when JSONP callback fails.
-      finalize(true, '✓ Request received. If your details were valid, your calendar invite has been scheduled. Please check your email in a few minutes.');
+      finalize(true, '✓ Request received. Please check your email in a few minutes for the calendar invite.');
     };
 
     document.body.appendChild(script);
 
-    // Fallback for environments where callback is blocked but request is accepted.
     setTimeout(function() {
       if (!settled) {
         finalize(true, '✓ Request submitted. Your calendar invite is being processed. Please check your email shortly.');
@@ -495,6 +473,7 @@
     }, 7000);
   }
 </script>
+
 
 <script src="js/main.js?v=20260328-2"></script>
 </body>
