@@ -36,8 +36,10 @@
   (function() {
     const carousel = document.getElementById('testiCarousel');
     if (!carousel) return;
-    const dots = document.querySelectorAll('#testiDots .testi-dot');
+    const dotsWrap = document.getElementById('testiDots');
+    if (!dotsWrap) return;
     const cards = carousel.querySelectorAll('.tcard');
+    let dots = [];
     let pos = 0, autoTimer;
 
     function visibleCount() {
@@ -47,7 +49,29 @@
     }
     function maxPos() { return Math.max(0, cards.length - visibleCount()); }
 
+    function rebuildDots() {
+      const needed = maxPos() + 1;
+      if (dotsWrap.children.length !== needed) {
+        dotsWrap.innerHTML = '';
+        for (let i = 0; i < needed; i++) {
+          const dot = document.createElement('div');
+          dot.className = 'testi-dot' + (i === 0 ? ' active' : '');
+          dot.dataset.slide = String(i);
+          dot.addEventListener('click', function() {
+            clearInterval(autoTimer);
+            pos = i;
+            update();
+            autoTimer = setInterval(next, 4500);
+          });
+          dotsWrap.appendChild(dot);
+        }
+      }
+      dots = Array.from(dotsWrap.querySelectorAll('.testi-dot'));
+    }
+
     function update() {
+      rebuildDots();
+      pos = Math.max(0, Math.min(pos, maxPos()));
       const cw = carousel.querySelector('.tcard').offsetWidth + 20;
       carousel.style.transform = 'translateX(-' + (pos * cw) + 'px)';
       dots.forEach((d, i) => d.classList.toggle('active', i === pos));
@@ -58,15 +82,6 @@
 
     document.getElementById('testiNext').addEventListener('click', function() { clearInterval(autoTimer); next(); autoTimer = setInterval(next, 4500); });
     document.getElementById('testiPrev').addEventListener('click', function() { clearInterval(autoTimer); prev(); autoTimer = setInterval(next, 4500); });
-    dots.forEach(function(d) {
-      d.addEventListener('click', function() {
-        clearInterval(autoTimer);
-        pos = Math.min(parseInt(d.dataset.slide), maxPos());
-        update();
-        autoTimer = setInterval(next, 4500);
-      });
-    });
-
     autoTimer = setInterval(next, 4500);
     window.addEventListener('resize', update);
     update();
@@ -128,6 +143,7 @@
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalText = submitBtn.textContent;
     const actionUrl = form.action || 'https://script.google.com/macros/s/AKfycbyC_cWb6dkYxpGp07KyELLB2xjwKeNWUJoJKyQk-fVN8GKRvzJzL8hSZLlAzt3QwqCm/exec';
+    const isGoogleScript = /script\.google\.com\//.test(actionUrl);
 
     // Clear any old messages
     const oldMessages = form.querySelectorAll('.form-message');
@@ -144,24 +160,44 @@
       }
     });
 
-    fetch(actionUrl, {
+    const requestOptions = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
       },
       body: body.toString(),
-    })
-      .then(response => response.text())
-      .then(text => {
+    };
+
+    // Apps Script frequently responds through a cross-origin redirect chain.
+    // In that case browsers may return an opaque response even when submit succeeded.
+    if (isGoogleScript) {
+      requestOptions.mode = 'no-cors';
+      requestOptions.redirect = 'follow';
+    }
+
+    fetch(actionUrl, requestOptions)
+      .then(response => {
+        if (response.type === 'opaque') {
+          return { opaque: true, text: '', redirected: false };
+        }
+        return response.text().then(text => ({ opaque: false, text, redirected: response.redirected }));
+      })
+      .then(({ opaque, text, redirected }) => {
         let data;
-        try {
-          data = JSON.parse(text);
-        } catch (err) {
-          data = null;
+        if (!opaque) {
+          try {
+            data = JSON.parse(text);
+          } catch (err) {
+            data = null;
+          }
         }
 
         let success = false;
-        if (data && (data.success || data.status === 'success' || data.result === 'success')) {
+        if (opaque) {
+          success = true;
+        } else if (redirected) {
+          success = true;
+        } else if (data && (data.success || data.status === 'success' || data.result === 'success')) {
           success = true;
         } else if (!data && text && !/error/i.test(text) && text.trim().length > 0) {
           success = true;
@@ -233,14 +269,20 @@
   if (ctaForm) {
     ctaForm.addEventListener('submit', function(e) {
       e.preventDefault();
+
+      const firstName = this.firstName ? this.firstName.value.trim() : '';
+      const lastName = this.lastName ? this.lastName.value.trim() : '';
+      const singleName = this.name ? this.name.value.trim() : '';
+      const fullName = (firstName + ' ' + lastName).trim() || singleName;
       
       const formData = {
-        name: this.firstName.value + ' ' + this.lastName.value,
+        name: fullName,
         email: this.email.value,
         phone: this.phone.value,
         audience: this.audience.value,
         preferredDate: this.preferredDate ? this.preferredDate.value : '',
-        preferredTime: this.preferredTime ? this.preferredTime.value : ''
+        preferredTime: this.preferredTime ? this.preferredTime.value : '',
+        message: this.message ? this.message.value : ''
       };
       
       handleFormSubmit(this, formData);
