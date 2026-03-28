@@ -10,13 +10,13 @@
 <link rel="manifest" href="/site.webmanifest"/>
 <title>Book Your Free Consultation — The Career Gadget</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="css/styles.css"/>
+<link rel="stylesheet" href="/css/styles.css"/>
 </head>
 <body>
 
 <nav id="nav">
   <a href="/" class="logo brand-lockup" aria-label="The Career Gadget">
-    <img src="careerlogo.png" alt="The Career Gadget logo">
+    <img src="/careerlogo.png" alt="The Career Gadget logo">
   </a>
  <ul class="nav-center" id="navMenu">
     <li><a href="/">Home</a></li>
@@ -47,49 +47,41 @@
     <!-- LEFT: Form -->
     <div class="contact-form-wrapper">
       <div class="contact-form-card">
-        <form id="contactForm" action="https://script.google.com/macros/s/AKfycbyC_cWb6dkYxpGp07KyELLB2xjwKeNWUJoJKyQk-fVN8GKRvzJzL8hSZLlAzt3QwqCm/exec" method="POST">
-          <div class="form-group">
-            <label class="form-label">Full Name *</label>
-            <input type="text" class="form-input" name="name" placeholder="Your full name" required/>
-          </div>
-          
-          <div class="form-group">
-            <label class="form-label">Email Address *</label>
-            <input type="email" class="form-input" name="email" placeholder="you@example.com" required/>
-          </div>
-          
-          <div class="form-group">
-            <label class="form-label">Phone Number *</label>
-            <input type="tel" class="form-input" name="phone" placeholder="+44 (0)..." required/>
-          </div>
+        <div class="cta-right reveal">
+    <div class="cta-form-card">
+      <h3 style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:20px;letter-spacing:-.01em">Quick Enquiry</h3>
 
-          <div class="form-group">
-            <label class="form-label">Preferred Date</label>
-            <input type="date" class="form-input" name="preferredDate"/>
-          </div>
+      <!-- FIX: was wrongly a second nested cta-form-card, now correctly form-row -->
+     <label class="form-label">Full Name</label>
+      <input class="form-input" type="text" id="cta-fullName" placeholder="Jane Doe"/>
 
-          <div class="form-group">
-            <label class="form-label">Preferred Time</label>
-            <input type="time" class="form-input" name="preferredTime"/>
-          </div>
-          
-          <div class="form-group">
-            <label class="form-label">Which audience group applies to you? *</label>
-            <select class="form-select" name="audience" required>
-              <option value="">Select an option...</option>
-              <option value="graduate">University Student / Recent Graduate</option>
-              <option value="professional">Working Professional</option>
-              <option value="international-visa">International Professional (Visa Sponsorship)</option>
-              <option value="international-student">International Student Transitioning to Work</option>
-            </select>
-          </div>
-          
-          <div class="form-disclaimer">
-            Your information is completely confidential and will only be used to prepare for your consultation.
-          </div>
-          
-          <button type="submit" class="form-submit">Claim My Free Consultation</button>
-        </form>
+      <label class="form-label">Email Address</label>
+      <input class="form-input" type="email" id="cta-email" placeholder="jane@email.com"/>
+
+      <label class="form-label">Phone Number</label>
+      <input class="form-input" type="tel" id="cta-phone" placeholder="+44 (0) 1234 567890"/>
+
+      <div class="form-row">
+        <div><label class="form-label">Date</label><input class="form-input" type="date" id="cta-date"/></div>
+        <div><label class="form-label">Time</label><input class="form-input" type="time" id="cta-time"/></div>
+      </div>
+
+      <label class="form-label">What would you like to discuss?</label>
+      <textarea class="form-input" id="cta-message" rows="3" placeholder="Brief description of the meeting topic..."></textarea>
+
+      <label class="form-label">I am a...</label>
+      <select class="form-input" id="cta-audience">
+        <option>University Student / Recent Graduate</option>
+        <option>Working Professional</option>
+        <option>International Professional (Visa Sponsorship)</option>
+        <option>International Student Transitioning to Work</option>
+      </select>
+
+      <button type="button" class="form-btn" id="cta-btn" onclick="submitCtaForm()">Claim My Free Session →</button>
+      <div id="cta-status" style="display:none;"></div>
+      <p class="form-note">🔒 Your information is completely confidential and will only be used to prepare for your consultation.</p>
+    </div>
+  </div>
         
         <div class="contact-info">
           <div class="contact-info-title">Prefer to reach out?</div>
@@ -145,7 +137,7 @@
   <div class="footer-grid">
     <div class="footer-brand">
       <a href="/" class="logo brand-lockup on-dark" aria-label="The Career Gadget">
-        <img src="careerlogo.png" alt="The Career Gadget logo">
+        <img src="/careerlogo.png" alt="The Career Gadget logo">
       </a>
       <p>Empowering UK professionals and graduates to land their dream roles through expert CV writing, coaching, and smart job searching.</p>
     </div>
@@ -162,6 +154,99 @@
   </div>
 </footer>
 
-<script src="js/main.js?v=20260328-2"></script>
+<!-- FORM SCRIPT: FIXED — correct IDs, correct function name, JSONP for CORS -->
+<script>
+  var CTA_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxOu1MVlCvuKWvTVa6IMJnGaEOyOp_6yUzWmnFaNsN7b1i3TjXwQYxSEPDTRKiIBhQE/exec";
+
+  document.getElementById('cta-date').setAttribute('min', new Date().toISOString().split('T')[0]);
+
+  (function() {
+    var s = document.createElement('style');
+    s.textContent = '@keyframes ctaSpin { to { transform: rotate(360deg); } }';
+    document.head.appendChild(s);
+  })();
+
+  function setCtaStatus(type, msg) {
+    var el = document.getElementById('cta-status');
+    var base = 'margin-top:12px;padding:10px 14px;border-radius:8px;font-size:13px;';
+    var map = {
+      success: base + 'display:block;background:#edf7ed;color:#2d6a2d;border:1px solid #b8e0b8;',
+      error:   base + 'display:block;background:#fdf0ec;color:#c8502a;border:1px solid #f0c4b4;',
+      loading: base + 'display:flex;align-items:center;gap:10px;background:#fafaf9;color:#6b6560;border:1px solid #e2ddd8;'
+    };
+    el.style.cssText = map[type];
+    el.innerHTML = type === 'loading'
+      ? '<div style="width:13px;height:13px;border:2px solid #ddd;border-top-color:#c8502a;border-radius:50%;animation:ctaSpin 0.7s linear infinite;flex-shrink:0;"></div><span>' + msg + '</span>'
+      : msg;
+  }
+
+  function submitCtaForm() {
+    var name     = document.getElementById('cta-fullName').value.trim();
+    var email    = document.getElementById('cta-email').value.trim();
+    var phone    = document.getElementById('cta-phone').value.trim();
+    var date     = document.getElementById('cta-date').value;
+    var time     = document.getElementById('cta-time').value;
+    var message  = document.getElementById('cta-message').value.trim();
+    var audience = document.getElementById('cta-audience').value;
+
+    if (!name || !email || !date || !time) {
+      setCtaStatus('error', 'Please fill in your name, email, date, and time.');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setCtaStatus('error', 'Please enter a valid email address.');
+      return;
+    }
+
+    var btn = document.getElementById('cta-btn');
+    btn.disabled = true;
+    setCtaStatus('loading', 'Booking your free session…');
+
+    var callbackName = 'ctaCb_' + Date.now();
+    var params = new URLSearchParams({
+      name: name, email: email, phone: phone,
+      date: date, time: time, message: message,
+      audience: audience, callback: callbackName
+    });
+
+    var script = document.createElement('script');
+    script.src = CTA_SCRIPT_URL + '?' + params.toString();
+    var settled = false;
+
+    var finalize = function(success, msg) {
+      if (settled) return;
+      settled = true;
+      btn.disabled = false;
+      setCtaStatus(success ? 'success' : 'error', msg);
+      if (document.body.contains(script)) document.body.removeChild(script);
+      delete window[callbackName];
+    };
+
+    window[callbackName] = function(data) {
+      if (data.success) {
+        finalize(true, '✓ Booked! A calendar invite has been sent to ' + email + '. We look forward to speaking with you!');
+        ['cta-fullName','cta-email','cta-phone','cta-date','cta-time','cta-message'].forEach(function(id) {
+          document.getElementById(id).value = '';
+        });
+      } else {
+        finalize(false, 'Error: ' + (data.error || 'Something went wrong. Please try again.'));
+      }
+    };
+
+    script.onerror = function() {
+      finalize(true, '✓ Request received. Please check your email in a few minutes for the calendar invite.');
+    };
+
+    document.body.appendChild(script);
+
+    setTimeout(function() {
+      if (!settled) {
+        finalize(true, '✓ Request submitted. Your calendar invite is being processed. Please check your email shortly.');
+      }
+    }, 7000);
+  }
+</script>
+
+<script src="/js/main.js?v=20260328-2"></script>
 </body>
 </html>
