@@ -1,0 +1,13 @@
+/index.html / 301
+/about-us.html /about-us 301
+/contact.html /contact 301
+/visa-sponsorship.html /visa-sponsorship 301
+/privacy-policy.html /privacy-policy 301
+/terms-of-service.html /terms-of-service 301
+
+/ /index.html 200
+/about-us /about-us.html 200
+/contact /contact.html 200
+/visa-sponsorship /visa-sponsorship.html 200
+/privacy-policy /privacy-policy.html 200
+/terms-of-service /terms-of-service.html 200

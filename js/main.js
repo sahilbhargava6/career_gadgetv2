@@ -1,4 +1,11 @@
-﻿  const nav = document.getElementById('nav');
+﻿  // Redirect any *.html URL to extensionless path while preserving query/hash.
+  if (/\.html$/.test(window.location.pathname)) {
+    const cleanPath = window.location.pathname.replace(/index\.html$/, '').replace(/\.html$/, '');
+    const target = (cleanPath || '/') + window.location.search + window.location.hash;
+    window.location.replace(target);
+  }
+
+  const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); });
   
   // ── Mobile Menu Toggle ──────────────────────────────────────────────────────
