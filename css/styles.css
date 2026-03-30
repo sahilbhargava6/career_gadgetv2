@@ -325,7 +325,7 @@
   /* TEAM SECTION */
   .team-section { padding:100px 6vw; background:var(--white); border-top:1px solid var(--border); }
   .team-header { text-align:center; margin-bottom:56px; }
-  .team-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:40px; max-width:800px; margin:0 auto; }
+  .team-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:32px; max-width:1200px; margin:0 auto; }
   .team-member { background:var(--paper); border:1px solid var(--border); border-radius:14px; padding:40px 32px; display:flex; flex-direction:column; align-items:center; text-align:center; transition:border-color .3s, transform .3s, box-shadow .3s; }
   .team-member:hover { border-color:var(--accent); transform:translateY(-4px); box-shadow:0 24px 64px rgba(0,63,53,.09); }
   .member-avatar { width:100px; height:100px; border-radius:50%; background:var(--accent); color:var(--white); display:flex; align-items:center; justify-content:center; font-family:'DM Sans', sans-serif; font-size:32px; font-weight:700; margin-bottom:20px; }

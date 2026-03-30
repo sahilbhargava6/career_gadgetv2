@@ -157,7 +157,8 @@
 
 <!-- FORM SCRIPT: FIXED — correct IDs, correct function name, JSONP for CORS -->
 <script>
-  var CTA_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxOu1MVlCvuKWvTVa6IMJnGaEOyOp_6yUzWmnFaNsN7b1i3TjXwQYxSEPDTRKiIBhQE/exec";
+  var CTA_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyzfvVHRAw6DZZ-Yhtz3rdFIixQFSOBYeIQTONTddelCHXgoBWinSOFBlM_jJHN-I37NA/exec";
+  var CTA_HOST_EMAIL = 'contacthecareergadget@gmail.com';
   var CTA_WEEKDAY_SLOTS = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00'];
   var CTA_SATURDAY_SLOTS = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00'];
 
@@ -276,10 +277,24 @@
     setCtaStatus('loading', 'Booking your free session…');
 
     var callbackName = 'ctaCb_' + Date.now();
+    var attendeeList = [email, CTA_HOST_EMAIL];
     var params = new URLSearchParams({
       name: name, email: email, phone: phone,
       date: date, time: time, message: message,
-      audience: audience, callback: callbackName
+      audience: audience,
+      hostEmail: CTA_HOST_EMAIL,
+      organizerEmail: CTA_HOST_EMAIL,
+      attendeeEmail: email,
+      attendeeEmails: attendeeList.join(','),
+      attendeesCsv: attendeeList.join(','),
+      attendees: JSON.stringify(attendeeList),
+      sendHostInvite: 'true',
+      sendInvites: 'true',
+      sendUpdates: 'all',
+      emailNotifications: 'true',
+      sendEmailToHost: 'true',
+      notifyHostByEmail: 'true',
+      callback: callbackName
     });
 
     var script = document.createElement('script');
@@ -297,7 +312,7 @@
 
     window[callbackName] = function(data) {
       if (data.success) {
-        finalize(true, '✓ Booked! A calendar invite has been sent to ' + email + '. We look forward to speaking with you!');
+        finalize(true, '✓ Booked! Calendar invites have been sent to ' + email + ' and our host team. We look forward to speaking with you!');
         ['cta-fullName','cta-email','cta-phone','cta-date','cta-time','cta-message'].forEach(function(id) {
           document.getElementById(id).value = '';
         });
@@ -308,14 +323,14 @@
     };
 
     script.onerror = function() {
-      finalize(true, '✓ Request received. Please check your email in a few minutes for the calendar invite.');
+      finalize(true, '✓ Request received. Please check your email in a few minutes for the calendar invite. Our host team will receive the same booking details.');
     };
 
     document.body.appendChild(script);
 
     setTimeout(function() {
       if (!settled) {
-        finalize(true, '✓ Request submitted. Your calendar invite is being processed. Please check your email shortly.');
+        finalize(true, '✓ Request submitted. Calendar invites for you and our host team are being processed. Please check your email shortly.');
       }
     }, 7000);
   }
